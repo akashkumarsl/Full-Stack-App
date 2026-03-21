@@ -11,14 +11,13 @@ function App() {
     e.preventDefault();
     setMessage('Submitting...');
     try {
-      const response = await fetch('http://localhost:3000/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, phone, email }),
+      const response = await fetch('https://full-stack-app-y9n8.onrender.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, phone, email }),
       });
-
       if (response.ok) {
         setMessage('Submitted successfully!');
         setName('');
