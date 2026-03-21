@@ -3,18 +3,20 @@ const { Pool } = require('pg');
 const cors = require('cors');
 
 const app = express();
-const port = 3000;
 
 app.use(cors());
 app.use(express.json());
 
+// ✅ USE ENV VARIABLES (IMPORTANT)
 const pool = new Pool({
-  user: 'myuser',
-  host: 'localhost',
-  database: 'mydb',
-  password: 'mypassword',
-  port: 5432,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
 });
+
+// routes stay same...
 
 app.post('/submit', async (req, res) => {
   const { name, phone, email } = req.body;
@@ -44,6 +46,9 @@ app.get('/users', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Backend server listening at http://localhost:${port}`);
+// ✅ FIX PORT
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
